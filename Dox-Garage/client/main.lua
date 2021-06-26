@@ -1,3 +1,9 @@
+-- Dox Shop https://discord.gg/wQBuB3U5Ym
+-- Dox Shop https://discord.gg/wQBuB3U5Ym
+-- Dox Shop https://discord.gg/wQBuB3U5Ym
+-- Dox Shop https://discord.gg/wQBuB3U5Ym
+
+
 QBCore = nil
 local PlayerData = {}
 local pedspawned = false
