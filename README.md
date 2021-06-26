@@ -3,6 +3,8 @@
 Preview:
 https://streamable.com/jdwcle
 
+Discord:
+https://discord.gg/wQBuB3U5Ym
 
 Requirements
 
