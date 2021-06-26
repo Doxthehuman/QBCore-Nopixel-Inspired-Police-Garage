@@ -1,5 +1,23 @@
 # QBCore-Nopixel-Inspired-Police-Garage
 
+Add this to bt-target
+
+    local peds = {
+        `ig_trafficwarden`,
+    }
+    AddTargetModel(peds, {
+        options = {
+            {
+                event = "garage:menu",
+                icon = "fas fa-car",
+                label = "Police Garage",
+            },
+        },
+        distance = 2.5
+    })
+
+
+
 Preview:
 https://streamable.com/jdwcle
 
