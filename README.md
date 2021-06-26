@@ -6,7 +6,7 @@ https://streamable.com/jdwcle
 Discord:
 https://discord.gg/wQBuB3U5Ym
 
-Requirements
+**Requirements**
 
 bt-Target = https://forum.cfx.re/t/release-standalone-target-tracking/2270296
 
