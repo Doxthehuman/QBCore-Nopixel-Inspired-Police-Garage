@@ -77,7 +77,6 @@ RegisterNetEvent('dox:garage')
 AddEventHandler('dox:garage', function(pd)
     local vehicle = pd.vehicle
     local coords = { ['x'] = 458.95, ['y'] = -993.23, ['z'] = 25.377454, ['h'] = 0 }
-    local plyGrade = pd.grade
     QBCore.Functions.SpawnVehicle(vehicle, function(veh)
         SetVehicleNumberPlateText(veh, "ZULU"..tostring(math.random(1000, 9999)))
         exports['LegacyFuel']:SetFuel(veh, 100.0)
