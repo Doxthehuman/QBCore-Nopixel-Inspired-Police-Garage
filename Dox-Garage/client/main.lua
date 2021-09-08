@@ -76,63 +76,15 @@ end
 RegisterNetEvent('dox:garage')
 AddEventHandler('dox:garage', function(pd)
     local vehicle = pd.vehicle
-    local coords = { ['x'] = 450.37411, ['y'] = -976.1613, ['z'] = 25.377454, ['h'] = 88.654922 }
-    
-
-    QBCore.Functions.GetPlayerData(function(PlayerData)
-        if PlayerData.job.name == "police" then
-            if vehicle == 'polchar' then
-                QBCore.Functions.SpawnVehicle(vehicle, function(veh)
-                    SetVehicleNumberPlateText(veh, "ZULU"..tostring(math.random(1000, 9999)))
-                    exports['LegacyFuel']:SetFuel(veh, 100.0)
-                    SetEntityHeading(veh, coords.h)
-                    TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
-                    TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
-                    SetVehicleEngineOn(veh, true, true)
-                end, coords, true)            
-            elseif  vehicle == 'polvic' then
-                QBCore.Functions.SpawnVehicle(vehicle, function(veh)
-                    SetVehicleNumberPlateText(veh, "ZULU"..tostring(math.random(1000, 9999)))
-                    exports['LegacyFuel']:SetFuel(veh, 100.0)
-                    SetEntityHeading(veh, coords.h)
-                    TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
-                    TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
-                    SetVehicleEngineOn(veh, true, true)
-                end, coords, true)
-
-            elseif vehicle ==  'polraptor' then
-                QBCore.Functions.SpawnVehicle(vehicle, function(veh)
-                    SetVehicleNumberPlateText(veh, "ZULU"..tostring(math.random(1000, 9999)))
-                    exports['LegacyFuel']:SetFuel(veh, 100.0)
-                    SetEntityHeading(veh, coords.h)
-                    TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
-                    TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
-                    SetVehicleEngineOn(veh, true, true)
-                end, coords, true)
-            elseif vehicle == 'poltaurus' then
-                QBCore.Functions.SpawnVehicle(vehicle, function(veh)
-                    SetVehicleNumberPlateText(veh, "ZULU"..tostring(math.random(1000, 9999)))
-                    exports['LegacyFuel']:SetFuel(veh, 100.0)
-                    SetEntityHeading(veh, coords.h)
-                    TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
-                    TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
-                    SetVehicleEngineOn(veh, true, true)
-                end, coords, true)
-            elseif vehicle == '2015polstang' then 
-                QBCore.Functions.SpawnVehicle(vehicle, function(veh)
-                    SetVehicleNumberPlateText(veh, "ZULU"..tostring(math.random(1000, 9999)))
-                    exports['LegacyFuel']:SetFuel(veh, 100.0)
-                    SetEntityHeading(veh, coords.h)
-                    TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
-                    TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
-                    SetVehicleEngineOn(veh, true, true)
-                end, coords, true)
-            end
-        else 
-            QBCore.Functions.Notify('You are not a cop.', 'error')
-            
-        end
-    end)    
+    local coords = { ['x'] = 458.95, ['y'] = -993.23, ['z'] = 25.377454, ['h'] = 0 }
+    QBCore.Functions.SpawnVehicle(vehicle, function(veh)
+        SetVehicleNumberPlateText(veh, "ZULU"..tostring(math.random(1000, 9999)))
+        exports['LegacyFuel']:SetFuel(veh, 100.0)
+        SetEntityHeading(veh, coords.h)
+        TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
+        TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
+        SetVehicleEngineOn(veh, true, true)
+    end, coords, true)     
 end)
 
 RegisterNetEvent('dox:storecar')
