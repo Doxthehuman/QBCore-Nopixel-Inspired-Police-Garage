@@ -3,85 +3,75 @@
 -- Dox Shop https://discord.gg/wQBuB3U5Ym
 -- Dox Shop https://discord.gg/wQBuB3U5Ym
 
-
-QBCore = nil
 local PlayerData = {}
 local pedspawned = false
 
-Citizen.CreateThread(function()
-	while QBCore == nil do
-		TriggerEvent('QBCore:GetObject', function(obj) QBCore = obj end)
-		Citizen.Wait(0)
-	end
-end)
-
 RegisterNetEvent('QBCore:Client:OnPlayerLoaded')
-AddEventHandler('QBCore:Client:OnPlayerLoaded', function(Player)
-    PlayerData =  QBCore.Functions.GetPlayerData()
+AddEventHandler('QBCore:Client:OnPlayerLoaded', function()
+    	PlayerData =  QBCore.Functions.GetPlayerData()
 end)
 
 RegisterNetEvent('QBCore:Client:OnJobUpdate')
 AddEventHandler('QBCore:Client:OnJobUpdate', function(job)
-     PlayerJob = job
+     	PlayerData.job = job
 end)
 
+RegisterNetEvent('QBCore:Player:SetPlayerData')
+AddEventHandler('QBCore:Player:SetPlayerData', function(val)
+	PlayerData = val
+end)
 
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(1000)
 		for k, v in pairs(Config.Pedlocation) do
 			local pos = GetEntityCoords(PlayerPedId())	
-			local dist = #(v.Cords - pos)
+			local dist = #(v.coords - pos)
 			
-			if dist < 40 and pedspawned == false then
-				TriggerEvent('spawn:ped',v.Cords,v.h)
+			if dist < 35 and not pedspawned then
+				TriggerEvent('spawn:ped', v.coords)
 				pedspawned = true
-			end
-			if dist >= 35 then
-				pedspawned = false
+			elseif dist >= 35 and pedspawned then
 				DeletePed(npc)
+				pedspawned = false
 			end
 		end
 	end
 end)
 
 RegisterNetEvent('spawn:ped')
-AddEventHandler('spawn:ped',function(coords,heading)
-	local hash = GetHashKey('ig_trafficwarden')
-	if not HasModelLoaded(hash) then
-		RequestModel(hash)
-		Wait(10)
-	end
+AddEventHandler('spawn:ped',function(coords)
+	local hash = `ig_trafficwarden`
+
+	RequestModel(hash)
 	while not HasModelLoaded(hash) do 
 		Wait(10)
 	end
 
-    pedspawned = true
-	npc = CreatePed(5, hash, coords, heading, false, false)
+    	pedspawned = true
+	npc = CreatePed(5, hash, coords.x, coords.y, coords.z - 1.0, coords.w, false, false)
 	FreezeEntityPosition(npc, true)
-    SetBlockingOfNonTemporaryEvents(npc, true)
+    	SetBlockingOfNonTemporaryEvents(npc, true)
 	loadAnimDict("amb@world_human_cop_idles@male@idle_b") 
-	while not TaskPlayAnim(npc, "amb@world_human_cop_idles@male@idle_b", "idle_e", 8.0, 1.0, -1, 17, 0, 0, 0, 0) do
-	Wait(1000)
-	end
+	TaskPlayAnim(npc, "amb@world_human_cop_idles@male@idle_b", "idle_e", 8.0, 1.0, -1, 17, 0, 0, 0, 0)
 end)
 
-function loadAnimDict( dict )
-    while ( not HasAnimDictLoaded( dict ) ) do
-        RequestAnimDict( dict )
-        Citizen.Wait( 5 )
+function loadAnimDict(dict)
+    while not HasAnimDictLoaded(dict) do
+        RequestAnimDict(dict)
+        Citizen.Wait(5)
     end
 end
 
 RegisterNetEvent('dox:garage')
 AddEventHandler('dox:garage', function(pd)
     local vehicle = pd.vehicle
-    local coords = { ['x'] = 458.95, ['y'] = -993.23, ['z'] = 25.377454, ['h'] = 0 }
+    local coords = vector4(458.95, -993.23, 25.377454, 0)
     QBCore.Functions.SpawnVehicle(vehicle, function(veh)
         SetVehicleNumberPlateText(veh, "ZULU"..tostring(math.random(1000, 9999)))
         exports['LegacyFuel']:SetFuel(veh, 100.0)
-        SetEntityHeading(veh, coords.h)
-        TaskWarpPedIntoVehicle(GetPlayerPed(-1), veh, -1)
+        SetEntityHeading(veh, coords.w)
+        TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
         TriggerEvent("vehiclekeys:client:SetOwner", GetVehicleNumberPlateText(veh))
         SetVehicleEngineOn(veh, true, true)
     end, coords, true)     
@@ -89,8 +79,6 @@ end)
 
 RegisterNetEvent('dox:storecar')
 AddEventHandler('dox:storecar', function()
-    local Player = QBCore.Functions.GetPlayerData()
-
     QBCore.Functions.Notify('Vehicle Stored!')
     local car = GetVehiclePedIsIn(PlayerPedId(),true)
     NetworkFadeOutEntity(car, true,false)
@@ -181,5 +169,3 @@ RegisterNetEvent('garage:menu', function()
         
     })
 end)
-
-
