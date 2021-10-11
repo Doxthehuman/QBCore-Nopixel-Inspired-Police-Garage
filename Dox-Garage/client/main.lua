@@ -93,10 +93,9 @@ AddEventHandler('dox:storecar', function()
 
     QBCore.Functions.Notify('Vehicle Stored!')
     local car = GetVehiclePedIsIn(PlayerPedId(),true)
-    NetworkFadeOutEntity(car, true,false)
-    Citizen.Wait(2000)
     QBCore.Functions.DeleteVehicle(car)
 end)
+
 
 
 
