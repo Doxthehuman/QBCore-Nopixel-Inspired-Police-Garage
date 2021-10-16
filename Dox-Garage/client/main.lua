@@ -89,11 +89,11 @@ end)
 
 RegisterNetEvent('dox:storecar')
 AddEventHandler('dox:storecar', function()
-    local Player = QBCore.Functions.GetPlayerData()
 
     QBCore.Functions.Notify('Vehicle Stored!')
     local car = GetVehiclePedIsIn(PlayerPedId(),true)
-    QBCore.Functions.DeleteVehicle(car)
+    DeleteVehicle(car)
+    DeleteEntity(car)
 end)
 
 
